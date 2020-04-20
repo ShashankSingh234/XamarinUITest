@@ -26,11 +26,24 @@ namespace UITestDemo.UITest
         }
 
         [Test]
-        [TestCase("email@email.com", "password", "LoggedIn successfully.")]
-        [TestCase("emai@email.com", "password", "Invalid email or password.")]
-        [TestCase("emai@email.com", "password", "LoggedIn successfully.")]
+        [TestCase("email@email.com", "password", "")]
+        [TestCase("emai@email.com", "password", "")]
+        public void PerformSuccessLogin(string email, string password, string result)
+        {
+            app.EnterText("Email", email);
+            app.EnterText("Password", password);
+
+            app.Tap("LoginButton");
+
+            app.WaitForElement(e => e.Id("ProfilePage"), "Timed out");
+            var appResult = app.Query("ProfilePage");
+            Assert.IsTrue(appResult != null, "Wrong page.");
+        }
+
+        [Test]
         [TestCase("email@email.com", "password", "Invalid email or password.")]
-        public void PerformLogin(string email, string password, string result)
+        [TestCase("emai@email.com", "password", "Invalid email or password.")]
+        public void PerformFailedLogin(string email, string password, string result)
         {
             app.EnterText("Email", email);
             app.EnterText("Password", password);

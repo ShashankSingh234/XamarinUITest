@@ -18,14 +18,16 @@ namespace UITestDemo
             InitializeComponent();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
             if(EmailEntry.Text == "email@email.com" && PasswordEntry.Text == "password")
             {
-                ResultLabel.Text = "LoggedIn successfully.";
+                await Navigation.PushAsync(new Page1());
+                //ResultLabel.Text = "LoggedIn successfully.";
             }
             else
             {
+                //await Navigation.PushAsync(new Page2());
                 ResultLabel.Text = "Invalid email or password.";
             }
         }
